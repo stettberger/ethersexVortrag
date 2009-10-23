@@ -1,4 +1,4 @@
-\documentclass[utf8, xcolor=pst]{beamer}
+\documentclass[utf8, xcolor=dvipsnames]{beamer}
 
 %\usepackage{default}
 %\usepackage{beamerthemesplit}
@@ -32,6 +32,14 @@
 % \usepackage{beamerthemeWarsaw}
 \usepackage{beamerthemeFreiburg}
 
+% Color scheme blau oder anders?
+\usecolortheme[named=Blue]{structure}
+% \usecolortheme{wolverine}
+\setbeamercolor{block title}{fg=craneblue,bg=craneorange}
+
+% Mit oder ohne Schatten?
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
 %\usepackage{pstricks}
 \usepackage{german}
 \usepackage{ragged2e}
@@ -48,29 +56,24 @@
 \title[Ethersex]{Das Ethersex-Projekt}
 \subtitle{Einführung}
 \author[RayVey]{Rayhope \and Veyron\newline \texttt{ethersex-devel@list.zerties.org}}
-\date[LaTa ’09]{Labortage '09 \\ \texttt{Prickle-Prickle, The Aftermath 12, 3175 YOLD}}
+\date[LaTa ’09]{Labortage '09}
 
 \titlegraphic{\includegraphics[width=0.5cm]{gnu-fdl.png}}
 \logo{\includegraphics[width=1.5cm]{./bunnies-bg.png}}
-% \logo{\pgfimage[width=1.5cm]{bunnies.png}}
-
 
 \begin{document}
 
 \frame{
-  \frametitle{Ein Kurzvortrag}
+  \frametitle{Ethersex}
   \titlepage
 }
 
-\section[Inhalt]{}
 \frame{
   \frametitle{Übersicht}
   \tableofcontents[pausesections]
 }
 
-\section{Einleitung}
- \frame{
-  \frametitle{Einleitung}
+\frame{
   \begin{block}<1->{Zitat}
     \begin{quote}
       \justifying{
@@ -90,6 +93,38 @@
   \end{block}
 }
 
+% Vortrag in 3 Teilen: Über Ethersex, Ethersex benutzen, Für Ethersex entwickeln
+
+% Historie, Überblick (Kenndaten, Was macht das Projekt besonders), Abstraktionen (IO, Metaschicht, Kommunikation[ECMD]), 
+\section{Über Ethersex}
+
+% Einle
+\subsection{Überblick}
+\frame{
+  \frametitle{Überblick}
+  \begin{itemize}
+    \item Zielplattform: Atmel Atmegas \pause
+    \item Quellcode in C, ergänzt durch Präprozessor m4 \pause
+    \item Dateien: $>1000$ \footnote<3->{Ermittelt mit: find . -type f $\mid$ wc -l}
+    \item Lines of Code: $\sim63533$ \footnote<3->{Ermittelt mit: find . -name ``*.[hc]'' $\mid$ xargs cat $\mid$ wc -l} \pause
+    \item Modularer Aufbau: 52 Module
+  \end{itemize}
+  \pause
+  \begin{block}{Komfort}
+    \begin{itemize}
+      \item Menü gesteuerte Auswahl von Zielhardware und Modulen
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Schnell erweiterbar}
+    \begin{itemize}
+      \item Eigenes Modul ohne Kenntnis des gesamten Quellcodes
+      \item Gut dokumentiert (fast 100 Seiten Doku, Beispiele) % Habe hier die Wiki Seiten mit ethersex Kategorie gezählt (waren 93)
+    \end{itemize}
+  \end{block}
+}
+
+%TODO Hier noch Zeitleiste einfügen
 \subsection{Historie}
 \frame{
   \frametitle{Die Entstehungsgeschichte}
@@ -102,36 +137,83 @@
   \end{block}
 }
 
-\section{Module}
+\subsection{Ethersex Core}
+\frame{
+  \frametitle{Ethersex Komponenten}
+  %TODO Hier noch Übersichtsdiagramm einfügen (natürlich in Bunt mit Farbe)
+}
+
+\subsubsection*{IO Abstraktion}
+\frame{
+  \frametitle{IO Abstraktion}
+  TODO Hier Quellcode
+}
+
+\subsubsection*{Metaschicht}
+\frame{
+  \frametitle{Metaschicht}
+  TODO Hier Quellcode
+}
+
+\subsubsection*{Virtual File System}
+\frame{
+  \frametitle{Virtual File System}
+  TODO Hier Quellcode
+}
+
+\subsection{Modularer Aufbau}
 \frame{
   \frametitle{Die Module}
-  \begin{block}<1->{Vielfalt}
+  \begin{block}{Klar gegliedert}
     \begin{itemize}
-      \item<1-> Netzwerkanbindung
-      \item<1-> Interaktion mit dem Anwender
-      \item<1-> Netzwerkprotokolle
-      \item<1-> Kontakt zur Außenwelt
-      \item<1-> Verschiedenes
+      \item Hardware Module
+      \item Protokoll Module
+      \item Service/Anwendungs Module
     \end{itemize}
   \end{block}
-  \begin{block}<2->{Komfort}
+
+  \pause
+
+  \begin{block}{Komfort}
     \begin{itemize}
-      \item<2-> Menü gesteuerte Auswahl der Module
+      \item Menü gesteuerte Auswahl der Module \pause
       \begin{itemize}
-	\item<3-> keine unötiger Overhead
+	\item Kleiner, performanter Code für den $\mu$Prozessor
       \end{itemize}
     \end{itemize}
   \end{block}
-  \begin{block}<4->{Einfach}
-    \begin{itemize}
-      \item<4-> Modulare Einbindung eigener Features
-    \end{itemize}
-  \end{block}
 }
+
+\subsection{Kommunikation}
+%TODO Hier muss noch ecmd erklärt werden
+\frame{
+  \frametitle{Steuerungsprotokoll ECMD}
+}
+
+\frame{
+  \frametitle{Interaktion mit Anwender}
+    \begin{itemize}
+      \item Per Netzwerk \pause
+	\begin{itemize}
+	  \item TCP (HTTP Protokoll)
+	  \item TCP
+	  \item UDP
+	\end{itemize} \pause
+      \item Per USB \pause
+      \item Per I2C \pause
+      \item Per RMF12 (Funk) \pause
+      \item Per RS232 \pause
+      \item $\cdots$
+    \end{itemize}
+}
+
+%TODO Hier noch Module rauspicken und erläutern
+% Rayofhope/david: Ich würde hier Stella Softpwm und Cron/Dynamic Cron nehmen
 \subsection{Modulübersicht}
 \input{Featurelist.tex}
 
-\subsection{Einstellen}
+\section{Ethersex benutzen}
+\subsection{Konfigurieren}
 \frame{
   \frametitle{Modulauswahl}
   Menuconfig: Hauptfenster
@@ -141,37 +223,6 @@
   \frametitle{Modulauswahl}
   Menuconfig: Generelle Einstellungen
   \includegraphics[width=10cm]{General.png}
-}
-
-\subsection{Hinzufügen}
-\frame{
-  \frametitle{Eigene Module hinzufügen}
-Metaschicht?\\
-Control6?
-}
-
-\section{Hardware}
-\frame{
-  \frametitle{Zielplatform}
-  \begin{block}<1->{Vielfalt}
-    \begin{itemize}
-      \item<1-> Prozessor: AVR Atmega
-      \begin{itemize}
-	\item<2-> Bausätze
-	\item<3-> Eigenbau
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-  \begin{block}<4->{Komfort}
-    \begin{itemize}
-      \item<4-> Menü gesteuerte Auswahl der Hardware
-    \end{itemize}
-  \end{block}
-  \begin{block}<5->{Einfach}
-    \begin{itemize}
-      \item<5-> Skriptgeführte Erstellung der Konfigurationsdateien
-    \end{itemize}
-  \end{block}
 }
 
 \subsection{Unterstütze Hardware}
@@ -184,23 +235,43 @@ Control6?
       \item AVR-Webserver (U. Radig)
       \item Thermotronic Basic (Eurotronic) \\Thermy (Aldi)
       \item ProBot (Conrad)
-      \item ...
-    \end{itemize}
-  \end{block}
-
-  \begin{block}<2->{Eigenbau}
-    \begin{itemize}
-      \item Bettwächter (stesie; zerties.org)
-      \item ...
     \end{itemize}
   \end{block}
 }
 
-\subsection{Eigenen Hardware}
+\subsection{Eigene Hardware}
 \frame{
-  \frametitle{Eigenen Hardware}
-Hackery?\\
-add-hardwarebrocken.sh?
+  \frametitle{Eigenes Hardware Pinning}
+  \begin{itemize}
+   \item scripts/add-hardware NAME aufrufen
+  \end{itemize}
+  \pause
+  %TODO Bild mit menuconfig (Hardware Auswahlmenue) und neuem Pinning
+  \includegraphics[width=10cm]{Main.png}
+}
+
+\section{Für Ethersex entwicklen}
+%TODO Hier evtl. Mailingliste, Bugtracker erwähnen
+\frame{
+  \frametitle{Kontakt}
+  TODO Hier evtl. Mailingliste, Bugtracker erwähnen
+}
+
+%TODO Hier github Fork Mechanismus 
+\subsection{Git}
+\frame{
+  \frametitle{Git Fork}
+  TODO Hier github Fork Mechanismus 
+}
+
+%TODO Metaschicht, Control6, EIngebettete Seite, Ecmd
+\subsection{Modul hinzufügen}
+\frame{
+  \frametitle{Eigenes Modul hinzufügen}
+    Metaschicht?\\
+    Control6?\\
+    Eingebette Webseite\\
+    Ecmd
 }
 
 \section{Fragen}
