@@ -1,0 +1,120 @@
+% \subsubsection{Netzwerk-anbindung}
+\frame{
+\frametitle{Ethersex features}
+\begin{block}{Netzwerkanbindung}
+\begin{itemize}
+  \item Ethernet (ENC28J60) inkl. IEEE 802.1q (VLANs)
+  \item USB
+  \item RFM12 (Funkübertragung auf dem 433 MHz ISM-Band)
+  \item ZBUS
+\end{itemize}
+\end{block}
+}
+
+% \subsubsection{Interaktion mit dem Anwender}
+\frame{
+\frametitle{Ethersex features}
+\begin{block}{Interaktion mit dem Anwender}
+\begin{itemize}
+  \item HTTP-Server (mit Zugriff auf Dateien und ECMD)
+  \item text-basiert (Telnet-ähnlich, TCP/IP oder UDP/IP)
+  \item über serielle Schnittstelle
+  \item über I2C
+  \item via Jabber/XMPP
+  \item via IRC
+\end{itemize}
+\end{block}
+}
+
+% \subsubsection{Netzwerkprotokolle}
+\frame{
+\frametitle{Ethersex features}
+\begin{block}{Netzwerkprotokolle}
+\begin{itemize}
+  \item TCP/IP, UDP/IP und ICMP
+  \item BOOTP (einfacherer, besser geeigneterer, Vorgänger von DHCP, der jedoch von allen gängigen DHCP-Servern unterstützt wird)
+  \item TFTP (Upload von Firmwaredateien bzw. in den Data Flash Baustein)
+  \item SYSLOG
+  \item SNMP
+  \item SMTP (E-Mail-Versand)
+  \item NTP (Client und Server)
+  \item DNS
+\end{itemize}
+\end{block}
+}
+\frame{
+\frametitle{Ethersex features}
+\begin{block}{Netzwerkprotokolle}
+\begin{itemize}
+  \item mDNS (Avahi)
+  \item DynDNS
+  \item MySQL (Client)
+  \item IRC (Client)
+  \item MPD (Music Player Daemon; einfache Steuerungsaufgaben)
+  \item SOAP/XMLRPC
+  \item UPnP
+\end{itemize}
+\end{block}
+}
+
+% \subsubsection{Kontakt zur Außenwelt}
+% \frame[allowframebreaks]{
+\frame{
+\frametitle{Ethersex features}
+\begin{block}{Kontakt zur Außenwelt}
+\begin{itemize}
+  \item RS232 und RS485
+  \item Infrarotsender und -empfänger (RC5 Fernbedienungen!)
+  \item I2C (Master und Slave)
+  \item Steuerung von FS20-Modulen (Funkmodule von ELV bzw. Conrad, u.a. Steckdosen, Dimmer und Temperatursensoren)
+  \item Modbus
+  \item YPort (Serial over LAN (SOL) auch als XPort bekannt)
+  \item Blinkenlights MCUF
+  \item Porterweiterungen durch HC595 und HC165 möglich
+\end{itemize}
+\end{block}
+}
+\frame{
+\frametitle{Ethersex features}
+\begin{block}{Kontakt zur Außenwelt}
+\begin{itemize}
+  \item Dateneingabe mittels PS/2 Tastatur
+  \item Dallas 1-wire Bus
+  \item LCD (HD44780 und Kompatible)
+  \item Philips dc3840 camera und MCA25-Handycam
+  \item Stella Light (PWM für bis zu 8 Kanäle)
+  \item Senertec Dachs MSR1 auslesen
+  \item SMS
+\end{itemize}
+\end{block}
+}
+
+% \subsubsection{Verschiedenes}
+\frame{
+\frametitle{Ethersex features}
+\begin{block}{Verschiedenes}
+\begin{itemize}
+  \item Fernsteuern von vielen Funksteckdosen mit RFM12 ASK
+  \item Atmel DataFlash (SPI Flash)
+  \item MMC/SD-Kartenleser
+  \item Sound
+  \item PAM Schicht zur Authentifizierung (z.b. ECMD-TCP)
+  \item Systemuhr
+  \item CRON-Dienst (analog dem crond auf Unix-Systemen)
+  \item Pins können mit symbolischen Namen versehen werden
+\end{itemize}
+\end{block}
+}
+\frame{
+\frametitle{Ethersex features}
+\begin{block}{Verschiedenes}
+\begin{itemize}
+  \item Control6
+  \item AliasCmd/Alias Namen für Befehle
+  \item ECMD Scripting
+  \item Virtuelles Dateisystem für DataFlash, MMC/SD-Karten und EEPROMs
+  \item Netstat/Online Statistik
+\end{itemize}
+\end{block}
+}
+
