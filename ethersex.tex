@@ -190,27 +190,34 @@
     \begin{itemize}
       \item USART Abstraktion für die Auswahl Serieller Schnittstellen
       \item EEPROM Abstraktion für persistente Informationen
-      \item Virtuelles Filesystem (mehr dazu später)
+      \item Virtuelles Filesystem
     \end{itemize}
   \end{block}
 }
 
-\subsubsection*{IO Abstraktion}
-\frame{
-  \frametitle{IO Abstraktion}
-  TODO Hier Quellcode
-}
+%% \subsubsection*{IO Abstraktion}
+%% \frame{
+%%   \frametitle{IO Abstraktion}
+%%   TODO Hier Quellcode
+%% }
 
-\subsubsection*{Metaschicht}
-\frame{
-  \frametitle{Metaschicht}
-  TODO Hier Quellcode
-}
+%% \subsubsection*{Metaschicht}
+%% \frame{
+%%   \frametitle{Metaschicht}
+%%   TODO Hier Quellcode
+%% }
 
 \subsubsection*{Virtual File System}
 \frame{
   \frametitle{Virtual File System}
-  TODO Hier Quellcode
+  \begin{itemize}
+    \item Verschiedene Backends (SD Karte, Interner Flash, Externer Dataflash)
+    \item *nix like interface\pause
+    \item \t{vfs\_file\_handle\_t fd = vfs\_open(``log'');}\\
+      \t{vfs\_fseek(fd, 23, SEEK\_CUR);}\\
+      \t{vfs\_read(fd, buf, 42);}\\
+      \t{vfs\_close(fd);}
+  \end{itemize}
 }
 
 \subsection{Modularer Aufbau}
