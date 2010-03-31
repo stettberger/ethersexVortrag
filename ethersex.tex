@@ -51,15 +51,16 @@
 % \pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm,landscape]
 % \pgfpagesuselayout{8 on 1}[a4paper,border shrink=5mm]
 % \pgfpagesuselayout{16 on 1}[a4paper,border shrink=5mm,landscape]
+\renewcommand{\t}[1]{\texttt{#1}}
 
 
 \title[Ethersex]{Das Ethersex-Projekt}
 \subtitle{Einführung}
-\author[RayVey]{Rayhope \and Veyron\newline \texttt{ethersex-devel@list.zerties.org}}
-\date[LaTa ’09]{Labortage '09}
+\author[RayVey]{Stesie \and Stettberger\newline \texttt{ethersex-devel@list.zerties.org}}
+\date[EaHegg 10]{Easterhegg 2010}
 
 \titlegraphic{\includegraphics[width=0.5cm]{gnu-fdl.png}}
-\logo{\includegraphics[width=1.5cm]{./bunnies-bg.png}}
+%FIXME \logo{\includegraphics[width=1.5cm]{./bunnies-bg.png}}
 
 \begin{document}
 
@@ -103,11 +104,11 @@
 \frame{
   \frametitle{Überblick}
   \begin{itemize}
-    \item Zielplattform: Atmel Atmegas \pause
+    \item Zielplattform: Atmel AVR 8-Bit Mikrocontroller\pause
     \item Quellcode in C, ergänzt durch Präprozessor m4 \pause
-    \item Dateien: $>1000$ \footnote<3->{Ermittelt mit: find . -type f $\mid$ wc -l}
-    \item Lines of Code: $\sim63533$ \footnote<3->{Ermittelt mit: find . -name ``*.[hc]'' $\mid$ xargs cat $\mid$ wc -l} \pause
-    \item Modularer Aufbau: 52 Module
+    \item Dateien: $>1000$ \footnote<3->{Ermittelt mit: find . -type f $\mid$ grep -v git $\mid$ wc -l}
+    \item Lines of Code: $\sim73832$ \footnote<3->{Ermittelt mit: find . -name ``*.[hc]'' $\mid$ xargs cat $\mid$ wc -l} \pause
+    \item Modularer Aufbau: 93 Module
   \end{itemize}
   \pause
   \begin{block}{Komfort}
@@ -124,23 +125,74 @@
   \end{block}
 }
 
+\frame{
+  \frametitle{-v Zielplatform}
+  \begin{itemize}
+    \item Programmspeicher (Flash): 8Kb - 64Kb\pause
+    \item RAM: 1 Kb - 4 Kb \pause
+    \item Kosten pro Chip: 1 EUR - 10 EUR\pause
+    \item Auswahl der Hardware über Menuconfig \pause
+    \item Fast alle Module auf allen Prozessoren verfügbar
+  \end{itemize}
+}
+
 %TODO Hier noch Zeitleiste einfügen
 \subsection{Historie}
 \frame{
   \frametitle{Die Entstehungsgeschichte}
   \begin{block}{Die Anfänge}
     \begin{itemize}
-      \item<1-> fd0 startet Softwareprojekt für die Hardware Etherrape
-      \item<2-> Stesie implementiert IPv6.
-      \item<3-> Stettberger baut RFM12 ein.
+      \item<1-> August 2006: fd0 startet Etherrape für u23
+      \item<2-> August 2007: stesie implementiert IPv6, Ethersex wird geforked
+      \item<3-> Oktober 07: IP über RFM12 wird implementiert, weitere Netzwerkinterfaces folgen
+      \item<4-> November 07: OpenVPN mit symmetrischer Krypto
     \end{itemize}
   \end{block}
 }
 
 \subsection{Ethersex Core}
 \frame{
-  \frametitle{Ethersex Komponenten}
-  %TODO Hier noch Übersichtsdiagramm einfügen (natürlich in Bunt mit Farbe)
+  \frametitle{Kerntech\^WBUZZWORD}
+  \begin{block}{Menuconfig}
+    \begin{itemize}
+      \item Konfiguration mit Modulabhänigkeiten
+      \item Übernommen vom Linuxkernel
+      \item ncurses Interface (DEMO!)
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Pinning Abstraktion}
+    \begin{itemize}
+      \item Ordnet Pins einen Namen zu und ermöglicht Zugriff\pause
+      \item \t{PIN(RED\_BUTTON, PB1)} - Definition eines Pins
+      \item \t{PIN\_SET(RED\_BUTTON)} - Pin auf 5V setzen\pause
+      \item Einfaces Verlegen von Anschlüssen\pause
+      \item M4 powered        
+    \end{itemize}
+  \end{block}
+}
+
+
+\frame{
+  \frametitle{Arbeitserleichterungen}
+  \begin{block}{Ethersex META}
+    \begin{itemize}
+      \item Einzelnes Modul (Ordner) beinhaltet alles Notwendige\pause
+      \item Sektion in der .c - Datei\pause
+      \item Bsp. \texttt{periodic(meine\_periodic\_func, 50)}
+      \item Funktion \t{meine\_periodic\_func} wird jede Sekunde (50 * 20ms) \
+        aufgerufen\pause
+      \item sed ... $\mid$ m4 ... $>$ meta.c
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Weiteres Basiszeugs}
+    \begin{itemize}
+      \item USART Abstraktion für die Auswahl Serieller Schnittstellen
+      \item EEPROM Abstraktion für persistente Informationen
+      \item Virtuelles Filesystem (mehr dazu später)
+    \end{itemize}
+  \end{block}
 }
 
 \subsubsection*{IO Abstraktion}
@@ -188,23 +240,33 @@
 %TODO Hier muss noch ecmd erklärt werden
 \frame{
   \frametitle{Steuerungsprotokoll ECMD}
+  \begin{itemize}
+  \item ECMD als zentrale Interaktionsschnittstelle\pause
+  \item Einzeilige ASCII Kommandos, ähnlich Shell\pause
+  \item Bsp.: \t{io get pin 0}
+  \item Holt den Eingangsstatus für Port 0 \\
+    (PORTA oder PORTB je nach Prozessor)
+  \end{itemize}
 }
 
 \frame{
-  \frametitle{Interaktion mit Anwender}
-    \begin{itemize}
-      \item Per Netzwerk \pause
+  \frametitle{Steuerungsprotokoll ECMD}
+  Zugriff auf die ECMD Schnittstelle über: \pause
+  \begin{itemize}
+  \item Per Netzwerk \pause
 	\begin{itemize}
-	  \item TCP (HTTP Protokoll)
-	  \item TCP
-	  \item UDP
-	\end{itemize} \pause
-      \item Per USB \pause
-      \item Per I2C \pause
-      \item Per RMF12 (Funk) \pause
-      \item Per RS232 \pause
-      \item $\cdots$
-    \end{itemize}
+	\item TCP (HTTP Protokoll)
+	\item TCP
+	\item UDP\pause
+    \item Jabber
+    \item IRC\pause
+    \item HTTP ( + Javascript = Dynamische Webseiten)
+    \end{itemize} \pause
+  \item Per USB \pause
+  \item Per I2C \pause
+  \item Per RS232/RS485 \pause
+  \item $\cdots$
+  \end{itemize}
 }
 
 %TODO Hier noch Module rauspicken und erläutern
