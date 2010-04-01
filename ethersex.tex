@@ -56,11 +56,11 @@
 
 \title[Ethersex]{Das Ethersex-Projekt}
 \subtitle{Einführung}
-\author[RayVey]{Stesie \and Stettberger\newline \texttt{ethersex-devel@list.zerties.org}}
+\author[]{stesie \and stettberger\newline \texttt{ethersex-devel@list.zerties.org}}
 \date[EaHegg 10]{Easterhegg 2010}
 
-\titlegraphic{\includegraphics[width=0.5cm]{gnu-fdl.png}}
-%FIXME \logo{\includegraphics[width=1.5cm]{./bunnies-bg.png}}
+\titlegraphic{\includegraphics[width=1.5cm]{gnu-fdl.png}}
+\logo{\includegraphics[width=1.5cm]{./bunnies-bg.png}}
 
 \begin{document}
 
@@ -71,88 +71,137 @@
 
 \frame{
   \frametitle{Übersicht}
-  \tableofcontents[pausesections]
+  \tableofcontents
 }
 
-\frame{
-  \begin{block}<1->{Zitat}
-    \begin{quote}
-      \justifying{
-	Der Urquell aller technischen Errungenschaften
-	ist die göttliche Neugier und der Spieltrieb des bastelnden und grübelnden Forschers
-	und nicht minder die konstruktive Fantasie des technischen Erfinders...\\
-	(A. Einstein: Eröffnung IFA 1930)
-      }
-    \end{quote}
-  \end{block}
-  \begin{block}<2->{Zusatz}
-    \begin{quote}
-      \justifying{
-	... und Softwareentwicklers.
-      }
-    \end{quote}
-  \end{block}
-}
+%% \frame{
+%%   \begin{block}<1->{Zitat}
+%%     \begin{quote}
+%%       \justifying{
+%% 	Der Urquell aller technischen Errungenschaften
+%% 	ist die göttliche Neugier und der Spieltrieb des bastelnden und grübelnden Forschers
+%% 	und nicht minder die konstruktive Fantasie des technischen Erfinders...\\
+%% 	(A. Einstein: Eröffnung IFA 1930)
+%%       }
+%%     \end{quote}
+%%   \end{block}
+%%   \begin{block}<2->{Zusatz}
+%%     \begin{quote}
+%%       \justifying{
+%% 	... und Softwareentwicklers.
+%%       }
+%%     \end{quote}
+%%   \end{block}
+%% }
 
 % Vortrag in 3 Teilen: Über Ethersex, Ethersex benutzen, Für Ethersex entwickeln
 
 % Historie, Überblick (Kenndaten, Was macht das Projekt besonders), Abstraktionen (IO, Metaschicht, Kommunikation[ECMD]), 
-\section{Über Ethersex}
 
-% Einle
-\subsection{Überblick}
+% Einleitung
+\section{Überblick}
 \frame{
   \frametitle{Überblick}
+  \begin{block}{Mission Target}
+    Universelle Plattform für Kommunikation auf Mikrocontrollern
+  \end{block}
+
   \begin{itemize}
-    \item Zielplattform: Atmel AVR 8-Bit Mikrocontroller\pause
-    \item Quellcode in C, ergänzt durch Präprozessor m4 \pause
-    \item Dateien: $>1000$ \footnote<3->{Ermittelt mit: find . -type f $\mid$ grep -v git $\mid$ wc -l}
-    \item Lines of Code: $\sim73832$ \footnote<3->{Ermittelt mit: find . -name ``*.[hc]'' $\mid$ xargs cat $\mid$ wc -l} \pause
-    \item Modularer Aufbau: 93 Module
+    \item Zielplattform: Atmel AVR 8-Bit Mikrocontroller
+    \item alternativ für's Debugging nativ unter Linux
+    \item Quellcode in C, ergänzt durch Präprozessor m4 
+    \item GPLv3 lizenziert (Teile LGPL \& BSD 3-clause)
+    \item Dateien: $>1000$ \footnote{Ermittelt mit: find . -type f $\mid$ grep -v git $\mid$ wc -l}
+    \item Lines of Code: $\sim73832$ \footnote{Ermittelt mit: find . -name ``*.[hc]'' $\mid$ xargs cat $\mid$ wc -l} zzgl. $\sim6582$ Zeilen m4
+    \item Modularer Aufbau: 93 Module $\Rightarrow$ schnell erweiterbar
+    \item Gut dokumentiert (fast 100 Seiten Doku, Beispiele)
+      % Habe hier die Wiki Seiten mit ethersex Kategorie gezählt (waren 93)
+
   \end{itemize}
-  \pause
-  \begin{block}{Komfort}
-    \begin{itemize}
-      \item Menü gesteuerte Auswahl von Zielhardware und Modulen
-    \end{itemize}
-  \end{block}
-  \pause
-  \begin{block}{Schnell erweiterbar}
-    \begin{itemize}
-      \item Eigenes Modul ohne Kenntnis des gesamten Quellcodes
-      \item Gut dokumentiert (fast 100 Seiten Doku, Beispiele) % Habe hier die Wiki Seiten mit ethersex Kategorie gezählt (waren 93)
-    \end{itemize}
-  \end{block}
+  
 }
 
+\begin{frame}
+  \begin{center}
+    \includegraphics[width=6cm]{oreally.png}      
+  \end{center}
+\end{frame}
+
+
+\subsection{Zielplattform}
 \frame{
   \frametitle{-v Zielplatform}
   \begin{itemize}
-    \item Programmspeicher (Flash): 8Kb - 64Kb\pause
-    \item RAM: 1 Kb - 4 Kb \pause
-    \item Kosten pro Chip: 1 EUR - 10 EUR\pause
-    \item Auswahl der Hardware über Menuconfig \pause
+    \item Programmspeicher (Flash): 8kB - 64kB
+    \item RAM: 1 kB - 4 kB 
+    \item Kosten pro Chip: 1 EUR - 10 EUR
+    \item Auswahl der Hardware über Menuconfig 
     \item Fast alle Module auf allen Prozessoren verfügbar
   \end{itemize}
 }
 
-%TODO Hier noch Zeitleiste einfügen
-\subsection{Historie}
+\begin{frame}
+  \frametitle{Etherrape}
+  \begin{center}
+    \includegraphics[width=9cm]{Etherrape.jpg}      
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{AVR NetIO - Pollin}
+  \begin{center}
+    \includegraphics[width=9cm]{Avr-net-io.jpg}      
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Powerswitch - Eigenbau}
+  \begin{center}
+    \includegraphics[width=9cm]{Ethersex-Avrnet-GPA.jpg}      
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{PoPuSt - Popellige Pumpensteuerung}
+  \begin{center}
+    \includegraphics[width=9cm]{TikiImage350.jpg}      
+  \end{center}
+\end{frame}
+
+
+\subsection{Kernkonzepte}
+\begin{frame}
+  \frametitle{Kernkonzepte}
+  \begin{itemize}
+    \item everything IP
+    \item ECMD als einheitliche Interaktionsschnittstelle
+    \item Hohe Abstraktion zur Compilezeit
+    \item m4, sed, awk and others rule ...
+      \pause
+    \item ... zur großen Freude unserer Windows-User :-)
+  \end{itemize}
+\end{frame}
+
+\section{Historie}
 \frame{
   \frametitle{Die Entstehungsgeschichte}
-  \begin{block}{Die Anfänge}
-    \begin{itemize}
-      \item<1-> August 2006: fd0 startet Etherrape für u23
-      \item<2-> August 2007: stesie implementiert IPv6, Ethersex wird geforked
-      \item<3-> Oktober 07: IP über RFM12 wird implementiert, weitere Netzwerkinterfaces folgen
-      \item<4-> November 07: OpenVPN mit symmetrischer Krypto
-    \end{itemize}
-  \end{block}
+  \begin{itemize}
+  \item August 06: fd0 startet Etherrape für u23
+  \item Dezember 06: fd0's Vortrag am 23C3
+  \item August 07: stesie implementiert IPv6, Ethersex wird geforked
+  \item Oktober 07: IP über RFM12 wird implementiert, weitere Netzwerkinterfaces folgen
+  \item November 07: OpenVPN mit symmetrischer Krypto
+  \item Dezember 07: erstes m4 Zeugs
+  \item März 08: IP-Router
+  \item April 09: Meta-System \& Wechsel zur GPLv3
+  \item bis heute: wöchentlich neue Module ...
+  \end{itemize}
 }
 
-\subsection{Ethersex Core}
+\section{Ethersex Core}
+\subsection{Hardware Abstraktion}
 \frame{
-  \frametitle{Kerntech\^WBUZZWORD}
+  \frametitle{Kerntech$\wedge$WBUZZWORD}
   \begin{block}{Menuconfig}
     \begin{itemize}
       \item Konfiguration mit Modulabhänigkeiten
@@ -160,96 +209,46 @@
       \item ncurses Interface (DEMO!)
     \end{itemize}
   \end{block}
-  \pause
-  \begin{block}{Pinning Abstraktion}
-    \begin{itemize}
-      \item Ordnet Pins einen Namen zu und ermöglicht Zugriff\pause
-      \item \t{PIN(RED\_BUTTON, PB1)} - Definition eines Pins
-      \item \t{PIN\_SET(RED\_BUTTON)} - Pin auf 5V setzen\pause
-      \item Einfaces Verlegen von Anschlüssen\pause
-      \item M4 powered        
-    \end{itemize}
-  \end{block}
-}
 
-
-\frame{
-  \frametitle{Arbeitserleichterungen}
   \begin{block}{Ethersex META}
     \begin{itemize}
-      \item Einzelnes Modul (Ordner) beinhaltet alles Notwendige\pause
-      \item Sektion in der .c - Datei\pause
+      \item Einzelnes Modul (Ordner) beinhaltet alles Notwendige
+      \item Sektion in der .c - Datei
       \item Bsp. \texttt{periodic(meine\_periodic\_func, 50)}
       \item Funktion \t{meine\_periodic\_func} wird jede Sekunde (50 * 20ms) \
-        aufgerufen\pause
+        aufgerufen
       \item sed ... $\mid$ m4 ... $>$ meta.c
     \end{itemize}
   \end{block}
-  \pause
-  \begin{block}{Weiteres Basiszeugs}
+  
+}
+\frame{
+  \frametitle{abstract, meta, voodoo ...}
+  \begin{block}{Pinning}
     \begin{itemize}
-      \item USART Abstraktion für die Auswahl Serieller Schnittstellen
-      \item EEPROM Abstraktion für persistente Informationen
-      \item Virtuelles Filesystem
+      \item Ordnet Pins einen Namen zu und ermöglicht Zugriff
+      \item \t{PIN(RED\_BUTTON, PB1)} - Definition eines Pins
+      \item \t{PIN\_SET(RED\_BUTTON)} - Pin auf 5V setzen
+      \item Einfaches Verlegen von Anschlüssen
+      \item M4 powered        
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{USART}
+    \begin{itemize}
+    \item Auswahl serieller Schnittstelle via Menuconfig
+    \item workarounds für AVR libc Inkonsistenzen
+    \item \texttt{usart(UCSR,B) $\mid$= \_BV(usart(TXCIE));}
     \end{itemize}
   \end{block}
 }
 
-%% \subsubsection*{IO Abstraktion}
-%% \frame{
-%%   \frametitle{IO Abstraktion}
-%%   TODO Hier Quellcode
-%% }
-
-%% \subsubsection*{Metaschicht}
-%% \frame{
-%%   \frametitle{Metaschicht}
-%%   TODO Hier Quellcode
-%% }
-
-\subsubsection*{Virtual File System}
+\subsection{ECMD}
 \frame{
-  \frametitle{Virtual File System}
+  \frametitle{ECMD - Ethersex Command}
   \begin{itemize}
-    \item Verschiedene Backends (SD Karte, Interner Flash, Externer Dataflash)
-    \item *nix like interface\pause
-    \item \t{vfs\_file\_handle\_t fd = vfs\_open(``log'');}\\
-      \t{vfs\_fseek(fd, 23, SEEK\_CUR);}\\
-      \t{vfs\_read(fd, buf, 42);}\\
-      \t{vfs\_close(fd);}
-  \end{itemize}
-}
-
-\subsection{Modularer Aufbau}
-\frame{
-  \frametitle{Die Module}
-  \begin{block}{Klar gegliedert}
-    \begin{itemize}
-      \item Hardware Module
-      \item Protokoll Module
-      \item Service/Anwendungs Module
-    \end{itemize}
-  \end{block}
-
-  \pause
-
-  \begin{block}{Komfort}
-    \begin{itemize}
-      \item Menü gesteuerte Auswahl der Module \pause
-      \begin{itemize}
-	\item Kleiner, performanter Code für den $\mu$Prozessor
-      \end{itemize}
-    \end{itemize}
-  \end{block}
-}
-
-\subsection{Kommunikation}
-%TODO Hier muss noch ecmd erklärt werden
-\frame{
-  \frametitle{Steuerungsprotokoll ECMD}
-  \begin{itemize}
-  \item ECMD als zentrale Interaktionsschnittstelle\pause
-  \item Einzeilige ASCII Kommandos, ähnlich Shell\pause
+  \item ECMD als zentrale Interaktionsschnittstelle
+  \item Einzeilige ASCII Kommandos, ähnlich Shell, batchbar
   \item Bsp.: \t{io get pin 0}
   \item Holt den Eingangsstatus für Port 0 \\
     (PORTA oder PORTB je nach Prozessor)
@@ -258,92 +257,266 @@
 
 \frame{
   \frametitle{Steuerungsprotokoll ECMD}
-  Zugriff auf die ECMD Schnittstelle über: \pause
+  Zugriff auf die ECMD Schnittstelle über: 
   \begin{itemize}
-  \item Per Netzwerk \pause
+  \item Per Netzwerk 
 	\begin{itemize}
 	\item TCP (HTTP Protokoll)
 	\item TCP
-	\item UDP\pause
+	\item UDP
     \item Jabber
-    \item IRC\pause
+    \item IRC
     \item HTTP ( + Javascript = Dynamische Webseiten)
-    \end{itemize} \pause
-  \item Per USB \pause
-  \item Per I2C \pause
-  \item Per RS232/RS485 \pause
+    \end{itemize} 
+  \item Per USB 
+  \item Per I2C 
+  \item Per RS232/RS485 
   \item $\cdots$
   \end{itemize}
 }
 
-%TODO Hier noch Module rauspicken und erläutern
-% Rayofhope/david: Ich würde hier Stella Softpwm und Cron/Dynamic Cron nehmen
-\subsection{Modulübersicht}
+
+\subsection{Control6}
+\begin{frame}
+  \frametitle{Control6}
+
+  \begin{itemize}
+  \item Skriptsprache, basierend auf proto threads
+  \item m4 \$foo $<$ control6.src $\mid$ gcc
+  \end{itemize}
+
+  \t{\ \ \ THREAD(logging)}\\
+  \t{\ \ \ \ \ \ static counter = 0;}\\
+  \t{\ \ \ \ \ \ VFS\_LOG(''log'', ''data: \%d{\textbackslash}n'', counter++;}\\
+  \t{\ \ \ \ \ \ WAIT(5);}\\
+  \t{\ \ \ THREAD\_END(logging)}\\
+  \t{}\\
+  \t{\ \ \ ON STARTUP DO}\\
+  \t{\ \ \ \ \ \ THREAD\_START(logging);}\\
+  \t{\ \ \ END}\\
+  
+  
+  \begin{itemize}
+  \item m4, m4, m4 ...
+  \end{itemize}
+\end{frame}
+
+\subsection{Virtual Filesystem}
+\frame{
+  \frametitle{Virtual File System}
+  \begin{itemize}
+    \item Verschiedene Backends (SD Karte, Interner Flash, Externer Dataflash)
+    \item *nix like interface
+    \item \t{vfs\_file\_handle\_t fd = vfs\_open(``log'');}\\
+      \t{vfs\_fseek(fd, 23, SEEK\_CUR);}\\
+      \t{vfs\_read(fd, buf, 42);}\\
+      \t{vfs\_close(fd);}
+  \end{itemize}
+}
+
+\section{uIP-Stack}
+\begin{frame}
+  \frametitle{Everything IP - uIP}
+  
+  \begin{block}{Einschränkungen}
+    
+    \begin{itemize}
+    \item TCP Retransmits
+    \item IP Packet Reassembly
+    \item Out-Of-Order Reception
+    \item Begrenzte Anzahl Connections
+    \end{itemize}
+
+  \end{block}
+
+  
+  \begin{block}{solutions}
+    
+    \begin{itemize}
+    \item Kodiere Verbindungsstatus
+    \item Kein Unterschied zwischen send und retransmit \\
+      $\Rightarrow$ Applikation muss Daten reproduzieren können
+    \end{itemize}
+
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Beispiel gefällig?}
+  \small{\begin{verbatim}
+    void application(void) {
+      if(uip_aborted() || uip_closed()) {
+        closed();
+      }
+      if(uip_connected()) {
+        connected();
+      }
+      if(uip_acked()) {
+        acked();
+      }
+      if(uip_newdata()) {
+        newdata();
+      }
+      if(uip_rexmit() || uip_newdata() || uip_acked() 
+         || uip_connected() || uip_poll()) {
+        senddata();
+      }
+    }
+  \end{verbatim}}
+
+\end{frame}
+
+\subsection{IP Router}
+\begin{frame}
+  \frametitle{IP Router}
+  
+  \begin{itemize}
+  \item Verschiedene Interfaces: Ethernet, RFM12, ZBus, USB (OpenVPN)
+  \item jedes mit eigener IP-Adresse/Mask
+  \item Forwarding zwischen Interfaces
+  \item ARP-Proxy
+  \item IPchair (= Firewalllösung)
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  
+  \begin{center}
+    \includegraphics[width=8cm]{network-dia.png}
+  \end{center}
+
+\end{frame}
+
+
+\section{Modulübersicht}
 \input{Featurelist.tex}
 
-\section{Ethersex benutzen}
-\subsection{Konfigurieren}
-\frame{
-  \frametitle{Modulauswahl}
-  Menuconfig: Hauptfenster
-  \includegraphics[width=10cm]{Main.png}
-}
-\frame{
-  \frametitle{Modulauswahl}
-  Menuconfig: Generelle Einstellungen
-  \includegraphics[width=10cm]{General.png}
-}
 
-\subsection{Unterstütze Hardware}
-\frame{
-  \frametitle{Unterstütze Hardware}
-  \begin{block}<1->{Bausätze}
+%% \subsection{Unterstütze Hardware}
+%% \frame{
+%%   \frametitle{Unterstütze Hardware}
+%%   \begin{block}{Bausätze}
+%%     \begin{itemize}
+%%       \item Etherrape (fd0;lochraster.org)
+%%       \item Net-IO (Pollin)
+%%       \item AVR-Webserver (U. Radig)
+%%       \item Thermotronic Basic (Eurotronic) \\Thermy (Aldi)
+%%       \item ProBot (Conrad)
+%%     \end{itemize}
+%%   \end{block}
+%% }
+
+\section{Anwendungsfall}
+\begin{frame}
+  \frametitle{Anwendungsfall}
+  
+  
+  \begin{block}{Voraussetzungen}
     \begin{itemize}
-      \item Etherrape (fd0;lochraster.org)
-      \item Net-IO (Pollin)
-      \item AVR-Webserver (U. Radig)
-      \item Thermotronic Basic (Eurotronic) \\Thermy (Aldi)
-      \item ProBot (Conrad)
+    \item Ziel: Blockheizkraftwerk (5.5kW) ans Netz anschließen
+    \item BHKW schreibt alle 10s auf serieller Schnittstelle Betriebsdaten
     \end{itemize}
   \end{block}
-}
 
-\subsection{Eigene Hardware}
-\frame{
-  \frametitle{Eigenes Hardware Pinning}
+  
+  \begin{block}{Daten auffangen}
+    \begin{itemize}
+    \item Neues Modulerstellen
+    \item Usart im Menuconfig anfordern
+    \item Im Receive Interrupthandler werden Daten in Buffer geschrieben
+    \item Periodisch aufgerufene Funktion prüft Checksumme
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Anwendungsfall}
+  
+  \begin{block}{Daten bereitstellen}
+    \begin{itemize}
+    \item Neues ECMD definieren (bsp. \t{msr1 get})
+    \item ECMD liefert validen Buffer zurück
+    \item Daten sind nun beispielsweise per HTTP verfügbar
+    \end{itemize}
+  \end{block}
+
+  
+  \begin{block}{Visualisieren}
+    \begin{itemize}
+    \item Statische HTML Seite im internen Flash mit JS
+    \item Javascript holt per XMLReqest ECMD Daten ab
+    \item \t{GET 1.1 /ecmd?msr1+get}
+    \item JS frickelt Daten in HTML Seite
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{center}
+    \includegraphics[width=11.1cm]{Msr1_screenshot.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  
   \begin{itemize}
-   \item scripts/add-hardware NAME aufrufen
+  \item Client Side Javascript innerhalb von SVG
   \end{itemize}
-  \pause
-  %TODO Bild mit menuconfig (Hardware Auswahlmenue) und neuem Pinning
-  \includegraphics[width=10cm]{Main.png}
-}
 
-\section{Für Ethersex entwicklen}
-%TODO Hier evtl. Mailingliste, Bugtracker erwähnen
-\frame{
-  \frametitle{Kontakt}
-  TODO Hier evtl. Mailingliste, Bugtracker erwähnen
-}
+    \includegraphics[width=6cm]{Onewire-svg.png}
 
-%TODO Hier github Fork Mechanismus 
-\subsection{Git}
-\frame{
-  \frametitle{Git Fork}
-  TODO Hier github Fork Mechanismus 
-}
+\end{frame}
 
-%TODO Metaschicht, Control6, EIngebettete Seite, Ecmd
-\subsection{Modul hinzufügen}
-\frame{
-  \frametitle{Eigenes Modul hinzufügen}
-    Metaschicht?\\
-    Control6?\\
-    Eingebette Webseite\\
-    Ecmd
-}
 
-\section{Fragen}
+\begin{frame}
+  \frametitle{Anwendungsfall}
+  
+  \begin{block}{Ein bischen Steuerung}
+    \begin{itemize}
+    \item Control6 Skript ließt Betriebsdaten aus (Temperatur, ...)
+    \item C6: Speichert die Daten selbständig auf SD Karte
+    \item C6: Sendet Syslognachricht, bei zu hoher Temperatur
+    \item Cron Daemon schaltet BHKW passend zum Frühstück an
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+\section{Projekte}
+\begin{frame}
+  \frametitle{entstandene Projekte}
+
+  \begin{itemize}
+  \item div. Heizungssteuerungen, Temperaturerfassung, ...
+  \item Solaranlagen-, BHKW-Überwachung, ...
+  \item Biogas-Anlage
+  \item volkszaehler.org
+  \item Nistkastenüberwachung
+  \item matemat @Kapsel
+  \end{itemize}
+
+\end{frame}
+
+\section{Mitmachen \& Fragen}
+\begin{frame}
+  \frametitle{Mitmachen}
+  \begin{itemize}
+  \item Workshop im Anschluss
+  \item Wiki: http://ethersex.de
+  \item Mailingliste: ethersex-devel@list.zerties.org
+  \item IRC:  \#ethersex in freenode
+  \item fork us @ github
+  \end{itemize}
+
+\end{frame}
+
 \frame{
 \frametitle{www.ethersex.de}
 Fragen? \\
@@ -357,7 +530,7 @@ Anregungen? \\
 \bigskip 
 \bigskip 
 \begin{center}
- \begin{small}Projekt-Wiki: \texttt{www.ethersex.de}\\ Vortragsfolien: \texttt{www.ethersex.de/index.php/Kurzvortrag} \end{small}
+ \begin{small}Projekt-Wiki: \texttt{www.ethersex.de} \end{small}
 \end{center}
 }
 \end{document}
